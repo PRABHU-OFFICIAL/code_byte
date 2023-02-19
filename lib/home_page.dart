@@ -12,14 +12,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var data = CourseData.getData;
-    bool btn1 = false,
-        btn2 = false,
-        btn3 = false,
-        btn4 = false,
-        btn5 = false,
-        btn6 = false,
-        btn7 = false,
-        btn8 = false;
 
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -124,103 +116,118 @@ class _HomePageState extends State<HomePage> {
                                       height: 124,
                                       width: 220,
                                     ),
-                                    Text(
-                                      data[index]['title']!,
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25),
-                                    ),
-                                    Text(
-                                      data[index]['subtitle']!,
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          data[index]['price']!,
-                                          style: const TextStyle(
-                                              fontSize: 25,
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          data[index]['discountedPrice']!,
-                                          style: const TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.red),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        OutlinedButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext
-                                                          context) =>
-                                                      AlertDialog(
-                                                        title: const Text(
-                                                          "Notice !",
-                                                          style: TextStyle(
-                                                              color: Colors.red,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 25),
-                                                        ),
-                                                        content: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: const [
-                                                            Text(
-                                                              "Buying not supported yet",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 20),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        actions: [
-                                                          OutlinedButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: const Text(
-                                                                  "Close"))
-                                                        ],
-                                                      ));
-                                            },
-                                            child: const Text("Buy Now")),
-                                        const SizedBox(
-                                          width: 80,
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                              Icons.add_shopping_cart_rounded,
-                                              color: Colors.red,
-                                              size: 30),
-                                        ),
-                                      ],
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            data[index]['title']!,
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25),
+                                          ),
+                                          Text(
+                                            data[index]['subtitle']!,
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                                fontStyle: FontStyle.italic),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                data[index]['price']!,
+                                                style: const TextStyle(
+                                                    fontSize: 25,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                data[index]['discountedPrice']!,
+                                                style: const TextStyle(
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              ElevatedButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (BuildContext
+                                                                    context) =>
+                                                                AlertDialog(
+                                                                  title:
+                                                                      const Text(
+                                                                    "Notice !",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        fontSize:
+                                                                            25),
+                                                                  ),
+                                                                  content:
+                                                                      Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: const [
+                                                                      Text(
+                                                                        "Buying not supported yet",
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 20),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                  actions: [
+                                                                    OutlinedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                        child: const Text(
+                                                                            "Close"))
+                                                                  ],
+                                                                ));
+                                                  },
+                                                  child: const Text("Buy Now")),
+                                              const SizedBox(
+                                                width: 80,
+                                              ),
+                                              IconButton(
+                                                onPressed: () {},
+                                                icon: const Icon(
+                                                    Icons
+                                                        .add_shopping_cart_rounded,
+                                                    color: Colors.red,
+                                                    size: 30),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
@@ -267,23 +274,20 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 5.0),
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() =>
-                                        btn1 ? btn1 = false : btn1 = true);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          btn1 ? Colors.green : Colors.blue),
-                                  child: Row(
-                                    children: const [
-                                      Text("DSA"),
-                                      Icon(
-                                        Icons.add,
-                                        size: 20,
-                                      )
-                                    ],
-                                  )),
+                              child: OutlinedButton(
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      "DSA",
+                                    ),
+                                    Icon(
+                                      Icons.add,
+                                      size: 20,
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 5.0),
@@ -395,6 +399,37 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 45,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Looking for Scholarships ?",
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Why not check this video...",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Card(
+                  elevation: 5,
+                  child: SizedBox(
+                    height: 200,
                   ),
                 )
               ],
