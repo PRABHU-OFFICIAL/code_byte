@@ -12,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var data = CourseData.getData;
+    var sData = ScholarshipData.getData;
 
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -416,7 +417,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Why not check this video...",
+                        "Isn't good to check these...",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -426,11 +427,75 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Card(
-                  elevation: 5,
-                  child: SizedBox(
-                    height: 200,
+                Card(
+                    elevation: 5,
+                    child: SizedBox(
+                      height: 220,
+                      child: ListView.builder(
+                        itemCount: sData.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(sData[index]["icon"]!),
+                            ),
+                            title: Text(
+                              sData[index]["title"]!,
+                              style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              sData[index]["subtitle"]!,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            trailing: const Icon(
+                              Icons.send,
+                              color: Colors.blue,
+                            ),
+                          );
+                        },
+                      ),
+                    )),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 45,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Not sure about which course to take ?",
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Why not ask our mentors...",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      )
+                    ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 200,
+                  width: 500,
+                  child: ListView.builder(itemBuilder: (context, index) {
+                    return Container();
+                  }),
                 )
               ],
             ),
@@ -476,4 +541,31 @@ class CourseData {
       "discountedPrice": "Rs 499",
     },
   ];
+}
+
+class ScholarshipData {
+  static final getData = [
+    {
+      "title": "e-Kalyan Scholarship",
+      "subtitle": "Govt of Jharkhand",
+      "icon":
+          "https://sg-res.9appsdownloading.com/sg/res/jpg/f5/85/70ab3c1ed0c6ea184c6814ed06d1-emz.jpg",
+    },
+    {
+      "title": "Commonwealth Scholarship",
+      "subtitle": "Online Scholarship",
+      "icon":
+          "https://st4.depositphotos.com/1842549/21440/i/450/depositphotos_214408834-stock-photo-online-diploma-icon.jpg",
+    },
+    {
+      "title": "Samunnathi Scholarship",
+      "subtitle": "Kerala State Welfare Corporation",
+      "icon":
+          "https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23173652/NSF-Scholarship.png",
+    },
+  ];
+}
+
+class MentorData {
+  static final getData = [];
 }
