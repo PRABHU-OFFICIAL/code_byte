@@ -13,6 +13,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var data = CourseData.getData;
     var sData = ScholarshipData.getData;
+    var mData = MentorData.getData;
 
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -493,9 +494,55 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 200,
                   width: 500,
-                  child: ListView.builder(itemBuilder: (context, index) {
-                    return Container();
-                  }),
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: mData.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.yellow.shade700,
+                          elevation: 5,
+                          child: SizedBox(
+                            width: 200,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.black,
+                                    radius: 50,
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          mData[index]["profile"]!),
+                                      radius: 45,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  mData[index]["name"]!,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  mData[index]["solved"]!,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                                Text(
+                                  mData[index]["domain"]!,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
                 )
               ],
             ),
@@ -567,5 +614,41 @@ class ScholarshipData {
 }
 
 class MentorData {
-  static final getData = [];
+  static final getData = [
+    {
+      "profile":
+          "https://www.thefamouspeople.com/profiles/thumbs/sundar-pichai-5.jpg",
+      "name": "Sundar Pichai",
+      "domain": "Google",
+      "solved": "CEO"
+    },
+    {
+      "profile":
+          "https://www.thefamouspeople.com/profiles/thumbs/mark-zuckerberg-4.jpg",
+      "name": "Mark Zuckerberg",
+      "domain": "Facebook",
+      "solved": "Co-Founder"
+    },
+    {
+      "profile":
+          "https://www.thefamouspeople.com/profiles/thumbs/jeff-bezos-2.jpg",
+      "name": "Jeff Bezos",
+      "domain": "Amazon",
+      "solved": "Chairman"
+    },
+    {
+      "profile":
+          "https://www.thefamouspeople.com/profiles/thumbs/elon-musk-4.jpg",
+      "name": "Elon Musk",
+      "domain": "Tesla",
+      "solved": "CEO"
+    },
+    {
+      "profile":
+          "https://www.thefamouspeople.com/profiles/thumbs/mukesh-ambani-7.jpg",
+      "name": "Mukesh Ambani",
+      "domain": "Reliance",
+      "solved": "Founder"
+    },
+  ];
 }
