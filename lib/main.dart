@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon/course_page.dart';
-import 'package:hackathon/home_page.dart';
-import 'package:hackathon/internships.dart';
-import 'package:hackathon/mentors_page.dart';
-import 'package:hackathon/my_drawer.dart';
-import 'package:hackathon/scholarships.dart';
+import 'package:hackathon/course_page_resources/course_page.dart';
+import 'package:hackathon/home_page_resources/home_page.dart';
+import 'package:hackathon/internships_resources/internships.dart';
+import 'package:hackathon/mentors_page_resources/mentors_page.dart';
+import 'package:hackathon/drawer_resources/my_drawer.dart';
+import 'package:hackathon/scholarships_resource/scholarships.dart';
 
 void main() {
   runApp(const MyApp());
