@@ -9,13 +9,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isLoading = false;
+  var data = CourseData.getData;
+  var sData = ScholarshipData.getData;
+  var mData = MentorData.getData;
+
+  @override
+  initState() {
+    super.initState();
+    loadWidgets();
+  }
+
+  void loadWidgets() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      isLoading = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    var data = CourseData.getData;
-    var sData = ScholarshipData.getData;
-    var mData = MentorData.getData;
 
-    return Padding(
+    return !isLoading ? Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -548,6 +565,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ));
         },
+      ),
+    ) : const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
