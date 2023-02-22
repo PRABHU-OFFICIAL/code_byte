@@ -9,6 +9,7 @@ class CoursePage extends StatefulWidget {
 
 class _CoursePageState extends State<CoursePage> {
   var cData = CoursesData.getData;
+  var tempData = CoursesData.getData;
   bool isLoading = false;
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text(
@@ -49,14 +50,28 @@ class _CoursePageState extends State<CoursePage> {
                 setState(() {
                   if (customIcon.icon == Icons.search) {
                     customIcon = const Icon(Icons.cancel);
-                    customSearchBar = const ListTile(
-                      leading: Icon(
-                        Icons.search,
-                        color: Colors.black,
-                        size: 25,
-                      ),
+                    customSearchBar =  ListTile(
+                      // leading: const Icon(
+                      //   Icons.search,
+                      //   color: Colors.black,
+                      //   size: 25,
+                      // ),
                       title: TextField(
-                        decoration: InputDecoration(
+                        onChanged: (String s) {
+                          setState(() {
+                            if (s.isEmpty) {
+                              cData = tempData;
+                              customIcon = const Icon(Icons.cancel);
+                            } else{
+                              customIcon = const Icon(Icons.search);
+                              cData = tempData
+                                  .where((element) =>
+                                      element["name"]!.toLowerCase().contains(s.toLowerCase()))
+                                  .toList();
+                            }
+                          });
+                        },
+                        decoration: const InputDecoration(
                           hintText: 'type in course name...',
                           hintStyle: TextStyle(
                             color: Colors.grey,
@@ -65,7 +80,7 @@ class _CoursePageState extends State<CoursePage> {
                           ),
                           border: InputBorder.none,
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.blue,
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
