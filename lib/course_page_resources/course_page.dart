@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'course_detail_page.dart';
+
 class CoursePage extends StatefulWidget {
   const CoursePage({super.key});
 
@@ -50,7 +52,7 @@ class _CoursePageState extends State<CoursePage> {
                 setState(() {
                   if (customIcon.icon == Icons.search) {
                     customIcon = const Icon(Icons.cancel);
-                    customSearchBar =  ListTile(
+                    customSearchBar = ListTile(
                       // leading: const Icon(
                       //   Icons.search,
                       //   color: Colors.black,
@@ -62,11 +64,12 @@ class _CoursePageState extends State<CoursePage> {
                             if (s.isEmpty) {
                               cData = tempData;
                               customIcon = const Icon(Icons.cancel);
-                            } else{
+                            } else {
                               customIcon = const Icon(Icons.search);
                               cData = tempData
-                                  .where((element) =>
-                                      element["name"]!.toLowerCase().contains(s.toLowerCase()))
+                                  .where((element) => element["name"]!
+                                      .toLowerCase()
+                                      .contains(s.toLowerCase()))
                                   .toList();
                             }
                           });
@@ -115,84 +118,105 @@ class _CoursePageState extends State<CoursePage> {
                 itemBuilder: (context, index) {
                   return Card(
                     elevation: 5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image(
-                          image: NetworkImage(
-                            cData[index]["image"]!,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CourseDetailPage(
+                                      map: {
+                                        "name": cData[index]["name"]!,
+                                        "image": cData[index]["image"]!,
+                                        "price": cData[index]["price"]!,
+                                        "discountPrice": cData[index]
+                                            ["discountPrice"]!,
+                                        "rating": cData[index]["rating"]!,
+                                        "ratingCount": cData[index]
+                                            ["ratingCount"]!,
+                                        "duration": cData[index]["duration"]!,
+                                      },
+                                    )));
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image(
+                            image: NetworkImage(
+                              cData[index]["image"]!,
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          child: Column(
-                            children: [
-                              Text(
-                                cData[index]["name"]!,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    cData[index]["price"]!,
-                                    style: const TextStyle(
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            child: Column(
+                              children: [
+                                Text(
+                                  cData[index]["name"]!,
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    cData[index]["discountPrice"]!,
-                                    style: const TextStyle(
-                                        color: Colors.red,
+                                      fontSize: 16),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      cData[index]["price"]!,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  ),
-                                  Text(
-                                    cData[index]["rating"]!,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Colors.grey,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "(${cData[index]["ratingCount"]!})",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                    const SizedBox(
+                                      width: 10,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.timer,
-                                    color: Colors.blue,
-                                  ),
-                                  Text(
-                                    cData[index]["duration"]!,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                    Text(
+                                      cData[index]["discountPrice"]!,
+                                      style: const TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      cData[index]["rating"]!,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "(${cData[index]["ratingCount"]!})",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.timer,
+                                      color: Colors.blue,
+                                    ),
+                                    Text(
+                                      cData[index]["duration"]!,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -266,4 +290,6 @@ class CoursesData {
       "duration": "7 hours",
     },
   ];
+
+  CoursesData(List<Map<String, String>> list);
 }
