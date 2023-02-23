@@ -126,6 +126,7 @@ class _CoursePageState extends State<CoursePage> {
                                 builder: (context) => CourseDetailPage(
                                       map: {
                                         "name": cData[index]["name"]!,
+                                        "desc": cData[index]["desc"]!,
                                         "image": cData[index]["image"]!,
                                         "price": cData[index]["price"]!,
                                         "discountPrice": cData[index]
@@ -234,6 +235,7 @@ class CoursesData {
   static final getData = [
     {
       "name": "Learn Python: The Complete Python Programming Course",
+      "desc" : "If you’re looking to learn Python for the very first time or need a quick brush-up, this is the course for you!, Python has rapidly become one of the most popular programming languages around the world. Compared to other languages such as Java or C++, Python consistently outranks and outperforms these languages in demand from businesses and job availability. The average Python developer makes over \$${100000} - this number is only going to grow in the coming years. The best part? Python is one of the easiest coding languages to learn right now. It doesn’t matter if you have no programming experience or are unfamiliar with the syntax of Python. By the time you finish this course, you'll be an absolute pro at programming!",
       "image": "https://i.udemycdn.com/course/480x270/394676_ce3d_3.jpg",
       "price": "₹ 1,499",
       "discountPrice": "₹ 1,199",
@@ -243,6 +245,7 @@ class CoursesData {
     },
     {
       "name": "The Complete 2021 Flutter Development Bootcamp with Dart",
+      "desc" : "Learn Flutter & Dart to build iOS & Android apps. Includes 2 apps, Firebase, Provider, REST API, Animations, Maps, & more!",
       "image":
           "https://1.bp.blogspot.com/-KsnDUjypvK4/XbwfXdYrSCI/AAAAAAAAAuU/12GW6U1x8i8l9t-QDhyplJeoV_N4lllCACLcBGAsYHQ/s1600/WDP41.jpg",
       "price": "₹ 1,399",
@@ -253,6 +256,7 @@ class CoursesData {
     },
     {
       "name": "Learning Python for Data Analysis and Visualization Ver 1",
+      "desc" : "Learn Python for Data Analysis and Visualization. Includes NumPy, Pandas, Matplotlib, Seaborn, Plotly, Cufflinks, and more!",
       "image": "https://i.ytimg.com/vi/GPVsHOlRBBI/maxresdefault.jpg",
       "price": "₹ 649",
       "discountPrice": "₹ 549",
@@ -262,6 +266,7 @@ class CoursesData {
     },
     {
       "name": "The Complete 2021 Android Development Bootcamp",
+      "desc" : "Learn Android App Development with Java and Android Studio. Includes Firebase, REST API, Maps, and more!",
       "image":
           "https://www.thesidepath.in/media/2021/04/20210402_163209_0000-1536x864.png",
       "price": "₹ 899",
@@ -272,6 +277,7 @@ class CoursesData {
     },
     {
       "name": "Learn Python: Python for Beginners",
+      "desc" : "Learn Python Programming from scratch and become a Python Developer in 2023 with this Python Course for Beginners.",
       "image": "https://i.ytimg.com/vi/ZWI-jrnbMhA/maxresdefault.jpg",
       "price": "₹ 2,499",
       "discountPrice": "₹ 1,999",
@@ -281,6 +287,7 @@ class CoursesData {
     },
     {
       "name": "Javascript for Beginners to Advanced",
+      "desc" : "Learn Javascript Programming from scratch and become a Javascript Developer in 2023 with this Javascript Course for Beginners.",
       "image":
           "https://blog.jetbrains.com/wp-content/uploads/2022/05/DSGN-13696_JetBrains_Academy_JS_for_Beginners_Blog_Social_share_image_1280x720-min-2.png",
       "price": "₹ 4,499",
