@@ -53,11 +53,6 @@ class _CoursePageState extends State<CoursePage> {
                   if (customIcon.icon == Icons.search) {
                     customIcon = const Icon(Icons.cancel);
                     customSearchBar = ListTile(
-                      // leading: const Icon(
-                      //   Icons.search,
-                      //   color: Colors.black,
-                      //   size: 25,
-                      // ),
                       title: TextField(
                         onChanged: (String s) {
                           setState(() {
