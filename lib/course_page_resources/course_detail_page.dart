@@ -11,6 +11,11 @@ class CourseDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(map['name']!),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
       ),
       body: Container(
           margin: const EdgeInsets.all(10),

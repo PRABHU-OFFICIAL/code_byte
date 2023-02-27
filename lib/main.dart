@@ -39,18 +39,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        title: const Text(
-          "Skill-a-thon 1.0",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   iconTheme: const IconThemeData(color: Colors.black),
+      //   elevation: 0,
+      //   title: const Text(
+      //     "Skill-a-thon 1.0",
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      // ),
       body: value == 0
           ? const HomePage()
           : value == 1

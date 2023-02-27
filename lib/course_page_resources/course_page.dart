@@ -43,7 +43,12 @@ class _CoursePageState extends State<CoursePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
+        elevation: 5,
         title: customSearchBar,
         iconTheme: const IconThemeData(color: Colors.black),
         actions: [
