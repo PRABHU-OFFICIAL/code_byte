@@ -38,6 +38,11 @@ class MyDrawer extends StatelessWidget {
             title: const Text("Channels"),
             iconColor: Colors.yellow.shade700,
           ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text("Sign Out"),
+            iconColor: Colors.black,
+          ),
         ],
       ),
     );
