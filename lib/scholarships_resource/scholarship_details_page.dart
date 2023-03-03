@@ -54,9 +54,22 @@ class _ScholarshipDetailsPageState extends State<ScholarshipDetailsPage> {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(Icons.school),
+                        const Icon(
+                          Icons.school,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          "Name:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
+                        ),
                         const SizedBox(
                           width: 10,
                         ),
@@ -70,9 +83,22 @@ class _ScholarshipDetailsPageState extends State<ScholarshipDetailsPage> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(Icons.screen_search_desktop),
+                        const Icon(
+                          Icons.screen_search_desktop,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          "Scheme :",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
+                        ),
                         const SizedBox(
                           width: 10,
                         ),
@@ -86,9 +112,22 @@ class _ScholarshipDetailsPageState extends State<ScholarshipDetailsPage> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(Icons.data_thresholding),
+                        const Icon(
+                          Icons.data_thresholding,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          "Deadline:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
+                        ),
                         const SizedBox(
                           width: 10,
                         ),
@@ -102,9 +141,22 @@ class _ScholarshipDetailsPageState extends State<ScholarshipDetailsPage> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(Icons.electric_meter),
+                        const Icon(
+                          Icons.electric_meter,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          "Eligibility:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
+                        ),
                         const SizedBox(
                           width: 10,
                         ),
@@ -116,6 +168,9 @@ class _ScholarshipDetailsPageState extends State<ScholarshipDetailsPage> {
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
@@ -139,7 +194,13 @@ class _ScholarshipDetailsPageState extends State<ScholarshipDetailsPage> {
                           SizedBox(
                             width: 10,
                           ),
-                          Text('Link'),
+                          Text(
+                            'Go To Page',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
                         ],
                       ),
                     ),
