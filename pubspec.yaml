@@ -39,6 +39,7 @@ dependencies:
   flip_card: ^0.7.0
   percent_indicator: ^4.2.2
   url_launcher: ^6.1.10
+  lottie: ^2.2.0
 
 dev_dependencies:
   flutter_test:

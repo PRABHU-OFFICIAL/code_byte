@@ -80,6 +80,7 @@ class _ScholarshipPageState extends State<ScholarshipPage> {
                               customIcon = const Icon(Icons.search);
                               scholarData = tempData
                                   .where((element) => element["name"]!
+                                      .toString()
                                       .toLowerCase()
                                       .contains(s.toLowerCase()))
                                   .toList();
