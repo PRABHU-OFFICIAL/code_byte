@@ -1,5 +1,5 @@
+import 'package:CodeByte/scholarships_resource/scholarship_details_page.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon/scholarships_resource/scholarship_details_page.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ScholarshipPage extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon/mentors_page_resources/mentors_details_page.dart';
 import 'package:lottie/lottie.dart';
+
+import 'mentors_details_page.dart';
 
 class MentorsPage extends StatefulWidget {
   const MentorsPage({super.key});

@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon/course_page_resources/course_page.dart';
-import 'package:hackathon/home_page_resources/home_page.dart';
-import 'package:hackathon/internships_resources/internships.dart';
-import 'package:hackathon/mentors_page_resources/mentors_page.dart';
-import 'package:hackathon/drawer_resources/my_drawer.dart';
-import 'package:hackathon/scholarships_resource/scholarships.dart';
+import 'package:lottie/lottie.dart';
+import 'authentication/welcome.dart';
+import 'home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,76 +20,36 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  bool isLoaded = false;
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
-    );
+  void initState() {
+    super.initState();
+    loadScreen();
   }
-}
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  loadScreen() async {
+    setState(() {
+      isLoaded = true;
+    });
+    await Future.delayed(const Duration(seconds: 10));
+    setState(() {
+      isLoaded = false;
+    });
+  }
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int value = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   iconTheme: const IconThemeData(color: Colors.black),
-      //   elevation: 0,
-      //   title: const Text(
-      //     "Skill-a-thon 1.0",
-      //     style: TextStyle(
-      //       color: Colors.black,
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   ),
-      // ),
-      body: value == 0
-          ? const HomePage()
-          : value == 1
-              ? const CoursePage()
-              : value == 2
-                  ? const InternshipPage()
-                  : value == 3
-                      ? const MentorsPage()
-                      : value == 4
-                          ? const ScholarshipPage()
-                          : Container(),
-      drawer: const MyDrawer(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.countertops_outlined), label: "Courses"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.interests), label: "Internships"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_pin), label: "Mentors"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school_sharp), label: "Scholarships"),
-        ],
-        currentIndex: value,
-        onTap: (index) {
-          setState(() {
-            value = index;
-          });
-        },
-        unselectedItemColor: Colors.black,
-        selectedItemColor: Colors.blue,
-        // selectedIconTheme: const IconThemeData(color: Colors.blue),
-        // unselectedIconTheme: const IconThemeData(color: Colors.black),
-      ),
+    return MaterialApp(
+      home: isLoaded
+          ? Container(
+              color: Colors.white,
+              child: Center(
+                child: Lottie.asset("images/telegram.json"),
+              ),
+            )
+          : FirebaseAuth.instance.currentUser == null
+              ? const Welcome()
+              : const HomeScreen(),
     );
   }
 }

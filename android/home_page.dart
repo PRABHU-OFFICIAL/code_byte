@@ -1,5 +1,5 @@
+import 'package:CodeByte/home_page_resources/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon/home_page_resources/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

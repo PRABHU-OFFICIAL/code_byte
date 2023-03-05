@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "405974952137",
+    "project_id": "codebyte-40a12",
+    "storage_bucket": "codebyte-40a12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405974952137:android:087e2f92c5bea258c8c518",
+        "android_client_info": {
+          "package_name": "com.example.hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405974952137-sfpv3e2f1av4tdcudc2dvgmh3tj11h0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2mDgDAklAWze_4Wn2bZCHCfmYbyZ99PI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405974952137-sfpv3e2f1av4tdcudc2dvgmh3tj11h0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
