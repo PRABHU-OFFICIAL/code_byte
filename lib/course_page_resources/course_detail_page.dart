@@ -1,16 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
-class CourseDetailPage extends StatelessWidget {
+class CourseDetailPage extends StatefulWidget {
   const CourseDetailPage({Key? key, required this.map}) : super(key: key);
-
   final Map<String, String> map;
+
+  @override
+  State<CourseDetailPage> createState() => _CourseDetailPageState();
+}
+
+class _CourseDetailPageState extends State<CourseDetailPage> {
+  bool isEnrolled = false;
+  var btnText = "Enroll Now";
+
+  @override
+  initState() {
+    super.initState();
+    checkEnrollment();
+  }
+
+  checkEnrollment() {
+    FirebaseFirestore.instance
+        .collection("courses")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot snapshot) {
+      var data = snapshot.data() as Map<String, dynamic>;
+
+      if (data['isEnrolled'] == 'true') {
+        setState(() {
+          btnText = "Enrolled";
+          isEnrolled = true;
+        });
+      } else {
+        setState(() {
+          btnText = "Enroll Now";
+          isEnrolled = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(map['name']!),
+        title: Text(widget.map['name']!),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(30),
@@ -27,11 +64,11 @@ class CourseDetailPage extends StatelessWidget {
               child: FlipCard(
                 direction: FlipDirection.HORIZONTAL,
                 front: Image.network(
-                  map['image']!,
+                  widget.map['image']!,
                   fit: BoxFit.cover,
                 ),
                 back: Image.network(
-                  map['image']!,
+                  widget.map['image']!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -40,7 +77,7 @@ class CourseDetailPage extends StatelessWidget {
               height: 10,
             ),
             Text(
-              map['name']!,
+              widget.map['name']!,
               style: const TextStyle(
                   fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red),
             ),
@@ -48,7 +85,7 @@ class CourseDetailPage extends StatelessWidget {
               height: 10,
             ),
             Text(
-              map['desc']!,
+              widget.map['desc']!,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -61,7 +98,7 @@ class CourseDetailPage extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  map['duration']!,
+                  widget.map['duration']!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -79,7 +116,7 @@ class CourseDetailPage extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  map['price']!,
+                  widget.map['price']!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -91,7 +128,7 @@ class CourseDetailPage extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  map['discountPrice']!,
+                  widget.map['discountPrice']!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -109,14 +146,14 @@ class CourseDetailPage extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  map['rating']!,
+                  widget.map['rating']!,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  "(${(map['ratingCount']!)})",
+                  "(${(widget.map['ratingCount']!)})",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -132,45 +169,47 @@ class CourseDetailPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              title: const Text(
-                                "Notice !",
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25),
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    "Enrollment not started yet",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  )
-                                ],
-                              ),
-                              actions: [
-                                OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text("Close"))
-                              ],
-                            ));
+                    if (isEnrolled) {
+                      setState(() {
+                        isEnrolled = false;
+                        btnText = "Enroll Now";
+                        FirebaseFirestore.instance
+                            .collection("courses")
+                            .doc(FirebaseAuth.instance.currentUser?.uid
+                                .toString())
+                            .delete();
+                      });
+                    } else {
+                      setState(() {
+                        isEnrolled = true;
+                        btnText = "Enrolled";
+                        FirebaseFirestore.instance
+                            .collection("courses")
+                            .doc(FirebaseAuth.instance.currentUser?.uid
+                                .toString())
+                            .set({
+                          "name": widget.map['name'],
+                          "desc": widget.map['desc'],
+                          "duration": widget.map['duration'],
+                          "price": widget.map['price'],
+                          "discountPrice": widget.map['discountPrice'],
+                          "rating": widget.map['rating'],
+                          "ratingCount": widget.map['ratingCount'],
+                          "image": widget.map['image'],
+                          "isEnrolled": "true",
+                        });
+                      });
+                    }
+                    // checkEnrollment();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 15),
                   ),
-                  child: const Text(
-                    "Enroll Now",
-                    style: TextStyle(
+                  child: Text(
+                    btnText,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -179,43 +218,6 @@ class CourseDetailPage extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                                title: const Text(
-                                  "Notice !",
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25),
-                                ),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "Adding to Cart not supported yet",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    )
-                                  ],
-                                ),
-                                actions: [
-                                  OutlinedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("Close"))
-                                ],
-                              ));
-                    },
-                    icon: const Icon(
-                      Icons.add_shopping_cart,
-                      size: 30,
-                    ))
               ],
             )
           ])),

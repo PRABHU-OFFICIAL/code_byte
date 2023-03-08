@@ -248,88 +248,49 @@ class _InternshipPageState extends State<InternshipPage> {
                                       Icons.bookmark_add,
                                       size: 30,
                                     ),
-                                    OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (BuildContext
-                                                        context) =>
-                                                    InternshipDetailPage(
-                                                      map: {
-                                                        "name": interData[index]
-                                                            ["name"]!,
-                                                        "company":
-                                                            interData[index]
-                                                                ["company"]!,
-                                                        "desc": interData[index]
-                                                            ["desc"]!,
-                                                          "companyDesc": interData[index]
-                                                            ["companyDesc"]!,
-                                                        "duration":
-                                                            interData[index]
-                                                                ["duration"]!,
-                                                        "stipend":
-                                                            interData[index]
-                                                                ["stipend"]!,
-                                                        "location":
-                                                            interData[index]
-                                                                ["location"]!,
-                                                        "applyBy":
-                                                            interData[index]
-                                                                ["applyBy"]!,
-                                                        // "description": interData[index]["description"]!,
-                                                      },
-                                                    )),
-                                          );
-                                        },
-                                        child: const Text(
-                                          "View Details",
-                                          style: TextStyle(color: Colors.red),
-                                        )),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) =>
-                                                  AlertDialog(
-                                                    title: const Text(
-                                                      "Notice !",
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 25),
-                                                    ),
-                                                    content: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: const [
-                                                        Text(
-                                                          "Internships are not made available yet",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    actions: [
-                                                      OutlinedButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: OutlinedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        InternshipDetailPage(
+                                                          map: {
+                                                            "name": interData[index]
+                                                                ["name"]!,
+                                                            "company":
+                                                                interData[index]
+                                                                    ["company"]!,
+                                                            "desc": interData[index]
+                                                                ["desc"]!,
+                                                              "companyDesc": interData[index]
+                                                                ["companyDesc"]!,
+                                                            "duration":
+                                                                interData[index]
+                                                                    ["duration"]!,
+                                                            "stipend":
+                                                                interData[index]
+                                                                    ["stipend"]!,
+                                                            "location":
+                                                                interData[index]
+                                                                    ["location"]!,
+                                                            "applyBy":
+                                                                interData[index]
+                                                                    ["applyBy"]!,
+                                                            // "description": interData[index]["description"]!,
                                                           },
-                                                          child: const Text(
-                                                              "Close"))
-                                                    ],
-                                                  ));
-                                        },
-                                        child: const Text("Apply Now"))
+                                                        )),
+                                              );
+                                            },
+                                            child: const Text(
+                                              "View Details",
+                                              style: TextStyle(color: Colors.red),
+                                            )),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
