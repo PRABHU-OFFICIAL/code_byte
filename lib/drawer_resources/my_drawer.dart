@@ -1,3 +1,4 @@
+import 'package:CodeByte/internships_resources/internhip_detail_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,9 @@ class _MyDrawerState extends State<MyDrawer> {
   String accountName = '';
   String accountEmail = '';
   String course = "";
-  Map<String, String> map = {};
+  String intern = '';
+  Map<String, String> courseMap = {};
+  Map<String, String> internMap = {};
 
   @override
   initState() {
@@ -23,6 +26,7 @@ class _MyDrawerState extends State<MyDrawer> {
     loadFirebaseData();
     getFirestoreData();
     getCourseDetails();
+    getInternDetails();
   }
 
   loadFirebaseData() async {
@@ -61,16 +65,38 @@ class _MyDrawerState extends State<MyDrawer> {
       var data = snapshot.data() as Map<String, dynamic>;
       setState(() {
         course = data['name'].toString();
-        map['image'] = data['image'].toString();
-        map['name'] = data['name'].toString();
-        map['desc'] = data['desc'].toString();
-        map['duration'] = data['duration'].toString();
-        map['price'] = data['price'].toString();
-        map['rating'] = data['rating'].toString();
-        map['discountPrice'] = data['discountPrice'].toString();
-        map['ratingCount'] = data['ratingCount'].toString();
-        map['isEnrolled'] = data['isEnrolled'].toString();
-        print(map);
+        courseMap['image'] = data['image'].toString();
+        courseMap['name'] = data['name'].toString();
+        courseMap['desc'] = data['desc'].toString();
+        courseMap['duration'] = data['duration'].toString();
+        courseMap['price'] = data['price'].toString();
+        courseMap['rating'] = data['rating'].toString();
+        courseMap['discountPrice'] = data['discountPrice'].toString();
+        courseMap['ratingCount'] = data['ratingCount'].toString();
+        courseMap['isEnrolled'] = data['isEnrolled'].toString();
+      });
+    });
+  }
+
+  getInternDetails() {
+    FirebaseFirestore.instance
+        .collection("internships")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot snapshot) {
+      var data = snapshot.data() as Map<String, dynamic>;
+      setState(() {
+        intern = data['name'].toString();
+        internMap['applyBy'] = data['applyBy'].toString();
+        internMap['company'] = data['company'].toString();
+        internMap['companyDesc'] = data['companyDesc'].toString();
+        internMap['desc'] = data['desc'].toString();
+        internMap['duration'] = data['duration'].toString();
+        internMap['location'] = data['location'].toString();
+        internMap['name'] = data['name'].toString();
+        internMap['stipend'] = data['stipend'].toString();
+        internMap['isApplied'] = data['isApplied'].toString();
+        print(internMap);
       });
     });
   }
@@ -114,7 +140,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CourseDetailPage(
-                                  map: map,
+                                  map: courseMap,
                                 )));
                       },
                     )
@@ -126,17 +152,19 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.interests),
             iconColor: Colors.red,
             children: [
-              ListTile(
-                leading: const Icon(Icons.interests),
-                title: Text(course),
-                iconColor: Colors.blue,
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CourseDetailPage(
-                            map: map,
-                          )));
-                },
-              )
+              intern.isNotEmpty
+                  ? ListTile(
+                      leading: const Icon(Icons.interests),
+                      title: Text(intern),
+                      iconColor: Colors.blue,
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => InternshipDetailPage(
+                                  map: internMap,
+                                )));
+                      },
+                    )
+                  : const ListTile(),
             ],
           ),
           ListTile(

@@ -1,15 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class InternshipDetailPage extends StatelessWidget {
+class InternshipDetailPage extends StatefulWidget {
   const InternshipDetailPage({Key? key, required this.map}) : super(key: key);
   final Map<String, dynamic> map;
+
+  @override
+  State<InternshipDetailPage> createState() => _InternshipDetailPageState();
+}
+
+class _InternshipDetailPageState extends State<InternshipDetailPage> {
+  bool isApplied = false;
+  String btnName = 'Apply Now';
+
+  @override
+  initState() {
+    super.initState();
+    checkEnrollment();
+  }
+
+  checkEnrollment() {
+    FirebaseFirestore.instance
+        .collection("internships")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot snapshot) {
+      var data = snapshot.data() as Map<String, dynamic>;
+
+      if (data['isApplied'] == 'true') {
+        setState(() {
+          btnName = "Applied";
+          isApplied = true;
+        });
+      } else {
+        setState(() {
+          btnName = "Apply Now";
+          isApplied = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          map['name']!,
+          widget.map['name']!,
         ),
         centerTitle: true,
         shape: const RoundedRectangleBorder(
@@ -50,7 +88,7 @@ class InternshipDetailPage extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                map['desc']!,
+                                widget.map['desc']!,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -80,7 +118,7 @@ class InternshipDetailPage extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                map['companyDesc']!,
+                                widget.map['companyDesc']!,
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
@@ -98,7 +136,7 @@ class InternshipDetailPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            map['duration']!,
+                            widget.map['duration']!,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -116,7 +154,7 @@ class InternshipDetailPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            map['stipend']!,
+                            widget.map['stipend']!,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -135,7 +173,7 @@ class InternshipDetailPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            map['applyBy']!,
+                            widget.map['applyBy']!,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -153,7 +191,7 @@ class InternshipDetailPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            map['location']!,
+                            widget.map['location']!,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -169,47 +207,47 @@ class InternshipDetailPage extends StatelessWidget {
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: const Text(
-                                          "Notice !",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25),
-                                        ),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: const [
-                                            Text(
-                                              "Internships are not made available yet",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            )
-                                          ],
-                                        ),
-                                        actions: [
-                                          OutlinedButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text("Close"))
-                                        ],
-                                      ));
+                              isApplied
+                                  ? setState(() {
+                                      isApplied = false;
+                                      btnName = 'Apply Now';
+                                      FirebaseFirestore.instance
+                                          .collection("internships")
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid
+                                              .toString())
+                                          .delete();
+                                    })
+                                  : setState(() {
+                                      isApplied = true;
+                                      btnName = "Applied";
+                                      FirebaseFirestore.instance
+                                          .collection("internships")
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid
+                                              .toString())
+                                          .set({
+                                        "name": widget.map["name"]!,
+                                        "company": widget.map["company"]!,
+                                        "desc": widget.map["desc"]!,
+                                        "companyDesc":
+                                            widget.map["companyDesc"]!,
+                                        "duration": widget.map["duration"]!,
+                                        "stipend": widget.map["stipend"]!,
+                                        "location": widget.map["location"]!,
+                                        "applyBy": widget.map["applyBy"]!,
+                                        "isApplied": isApplied.toString(),
+                                      });
+                                    });
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 50, vertical: 15),
                             ),
-                            child: const Text(
-                              "Apply Now",
-                              style: TextStyle(
+                            child: Text(
+                              btnName,
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -218,45 +256,6 @@ class InternshipDetailPage extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          IconButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                          title: const Text(
-                                            "Notice !",
-                                            style: TextStyle(
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25),
-                                          ),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: const [
-                                              Text(
-                                                "Can't save internships now",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              )
-                                            ],
-                                          ),
-                                          actions: [
-                                            OutlinedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text("Close"))
-                                          ],
-                                        ));
-                              },
-                              icon: const Icon(
-                                Icons.save,
-                                size: 35,
-                              ))
                         ],
                       )
                     ])),
